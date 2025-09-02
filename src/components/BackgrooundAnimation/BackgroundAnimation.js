@@ -3,251 +3,731 @@ import { useDarkMode } from "next-dark-mode";
 
 const BackgroundAnimation = () => {
   const { darkModeActive } = useDarkMode();
-  
-  const primaryColor = darkModeActive ? "#fff" : "#17181F";
-  const secondaryColor = darkModeActive ? "rgba(255,255,255,0.5)" : "rgba(23,24,31,0.5)";
-  const accentColor = darkModeActive ? "#6366F1" : "#4F46E5";
-  const gradientStart = darkModeActive ? "rgba(99, 102, 241, 0.3)" : "rgba(79, 70, 229, 0.2)";
-  const gradientEnd = darkModeActive ? "rgba(99, 102, 241, 0.1)" : "rgba(79, 70, 229, 0.05)";
 
   return (
-    <div className="hero-image">
-      <svg
-        className="BgAnimation__svg"
-        viewBox="0 0 602 602"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        {/* Background gradient */}
-        <rect width="602" height="602" fill={`url(#backgroundGradient)`} />
-        
-        {/* Floating blobs/organic shapes */}
-        <g filter="url(#blobFilter)">
-          <path
-            d="M450 200C475 180 500 220 480 250C460 280 420 290 390 270C360 250 350 210 370 180C390 150 425 140 450 170C475 200 425 220 450 200Z"
-            fill={gradientStart}
-            opacity="0.7"
-          >
-            <animate
-              attributeName="d"
-              dur="20s"
-              repeatCount="indefinite"
-              values="M450 200C475 180 500 220 480 250C460 280 420 290 390 270C360 250 350 210 370 180C390 150 425 140 450 170C475 200 425 220 450 200Z;
-                      M440 190C465 170 490 210 470 240C450 270 410 280 380 260C350 240 340 200 360 170C380 140 415 130 440 160C465 190 415 210 440 190Z;
-                      M460 210C485 190 510 230 490 260C470 290 430 300 400 280C370 260 360 220 380 190C400 160 435 150 460 180C485 210 435 230 460 210Z;
-                      M450 200C475 180 500 220 480 250C460 280 420 290 390 270C360 250 350 210 370 180C390 150 425 140 450 170C475 200 425 220 450 200Z"
-            />
-          </path>
-
-          <path
-            d="M150 400C125 380 100 420 120 450C140 480 180 490 210 470C240 450 250 410 230 380C210 350 175 340 150 370C125 400 175 420 150 400Z"
-            fill={gradientEnd}
-            opacity="0.6"
-          >
-            <animate
-              attributeName="d"
-              dur="25s"
-              repeatCount="indefinite"
-              values="M150 400C125 380 100 420 120 450C140 480 180 490 210 470C240 450 250 410 230 380C210 350 175 340 150 370C125 400 175 420 150 400Z;
-                      M140 390C115 370 90 410 110 440C130 470 170 480 200 460C230 440 240 400 220 370C200 340 165 330 140 360C115 390 165 410 140 390Z;
-                      M160 410C135 390 110 430 130 460C150 490 190 500 220 480C250 460 260 420 240 390C220 360 185 350 160 380C135 410 185 430 160 410Z;
-                      M150 400C125 380 100 420 120 450C140 480 180 490 210 470C240 450 250 410 230 380C210 350 175 340 150 370C125 400 175 420 150 400Z"
-            />
-          </path>
-        </g>
-
-        {/* Wave patterns */}
-        <g opacity="0.4">
-          <path
-            d="M0 350 Q150 300 300 350 T600 350"
-            stroke={accentColor}
-            strokeWidth="2"
+    <>
+      {darkModeActive ? (
+        <div className="hero-image">
+          <svg
+            className="BgAnimation__svg"
+            viewBox="0 0 602 602"
             fill="none"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <animate
-              attributeName="d"
-              dur="15s"
-              repeatCount="indefinite"
-              values="M0 350 Q150 300 300 350 T600 350;
-                      M0 340 Q150 290 300 340 T600 340;
-                      M0 360 Q150 310 300 360 T600 360;
-                      M0 350 Q150 300 300 350 T600 350"
-            />
-          </path>
-
-          <path
-            d="M0 450 Q150 400 300 450 T600 450"
-            stroke={primaryColor}
-            strokeWidth="1.5"
-            fill="none"
-          >
-            <animate
-              attributeName="d"
-              dur="12s"
-              repeatCount="indefinite"
-              values="M0 450 Q150 400 300 450 T600 450;
-                      M0 440 Q150 390 300 440 T600 440;
-                      M0 460 Q150 410 300 460 T600 460;
-                      M0 450 Q150 400 300 450 T600 450"
-            />
-          </path>
-
-          <path
-            d="M0 250 Q150 200 300 250 T600 250"
-            stroke={secondaryColor}
-            strokeWidth="1"
-            fill="none"
-          >
-            <animate
-              attributeName="d"
-              dur="18s"
-              repeatCount="indefinite"
-              values="M0 250 Q150 200 300 250 T600 250;
-                      M0 240 Q150 190 300 240 T600 240;
-                      M0 260 Q150 210 300 260 T600 260;
-                      M0 250 Q150 200 300 250 T600 250"
-            />
-          </path>
-        </g>
-
-        {/* Geometric patterns - Hexagons */}
-        <g opacity="0.2" stroke={primaryColor} strokeWidth="0.5">
-          {[...Array(6)].map((_, i) => (
-            <path
-              key={`hex-${i}`}
-              d={`M${300 + Math.cos(i * Math.PI / 3) * 100} ${300 + Math.sin(i * Math.PI / 3) * 100} 
-                  L${300 + Math.cos((i + 1) * Math.PI / 3) * 100} ${300 + Math.sin((i + 1) * Math.PI / 3) * 100}`}
-            >
-              <animate
-                attributeName="stroke"
-                values={`${primaryColor};${accentColor};${primaryColor}`}
-                dur="8s"
-                begin={`${i * 0.5}s`}
-                repeatCount="indefinite"
+            <g opacity="0.15">
+              <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M201.337 87.437C193.474 79.5738 180.725 79.5738 172.862 87.437L87.437 172.862C79.5739 180.725 79.5739 193.474 87.437 201.337L400.663 514.563C408.526 522.426 421.275 522.426 429.138 514.563L514.563 429.138C522.426 421.275 522.426 408.526 514.563 400.663L201.337 87.437ZM30.4869 115.912C-8.82897 155.228 -8.82897 218.972 30.4869 258.287L343.713 571.513C383.028 610.829 446.772 610.829 486.088 571.513L571.513 486.088C610.829 446.772 610.829 383.028 571.513 343.713L258.287 30.4869C218.972 -8.82896 155.228 -8.82896 115.912 30.4869L30.4869 115.912Z"
+                stroke="#58a6ff"
+                id="path_0"
               />
-            </path>
-          ))}
-        </g>
-
-        {/* Floating particles with trails */}
-        {[...Array(8)].map((_, i) => {
-          const size = 1 + Math.random() * 2;
-          const duration = 10 + Math.random() * 15;
-          const delay = Math.random() * 3;
-          
-          return (
-            <g key={`particle-${i}`}>
-              <circle
-                cx={100 + Math.random() * 400}
-                cy={100 + Math.random() * 400}
-                r={size}
-                fill={accentColor}
-                opacity="0.8"
-              >
-                <animate
-                  attributeName="cx"
-                  values={`${100 + Math.random() * 400};${100 + Math.random() * 400};${100 + Math.random() * 400}`}
-                  dur={`${duration}s`}
-                  repeatCount="indefinite"
-                />
-                <animate
-                  attributeName="cy"
-                  values={`${100 + Math.random() * 400};${100 + Math.random() * 400};${100 + Math.random() * 400}`}
-                  dur={`${duration + 2}s`}
-                  repeatCount="indefinite"
-                />
-                <animate
-                  attributeName="r"
-                  values={`${size};${size * 1.5};${size}`}
-                  dur={`${4}s`}
-                  repeatCount="indefinite"
-                />
-              </circle>
-              <circle
-                cx={100 + Math.random() * 400}
-                cy={100 + Math.random() * 400}
-                r={size * 0.6}
-                fill={primaryColor}
-                opacity="0.4"
-              >
-                <animate
-                  attributeName="cx"
-                  values={`${100 + Math.random() * 400};${100 + Math.random() * 400};${100 + Math.random() * 400}`}
-                  dur={`${duration}s`}
-                  repeatCount="indefinite"
-                  begin={`${delay}s`}
-                />
-                <animate
-                  attributeName="cy"
-                  values={`${100 + Math.random() * 400};${100 + Math.random() * 400};${100 + Math.random() * 400}`}
-                  dur={`${duration + 2}s`}
-                  repeatCount="indefinite"
-                  begin={`${delay}s`}
-                />
-              </circle>
+              <path
+                d="M514.563 201.337C522.426 193.474 522.426 180.725 514.563 172.862L429.138 87.437C421.275 79.5738 408.526 79.5739 400.663 87.437L358.098 130.002L301.148 73.0516L343.713 30.4869C383.028 -8.82896 446.772 -8.82896 486.088 30.4869L571.513 115.912C610.829 155.228 610.829 218.972 571.513 258.287L357.802 471.999L300.852 415.049L514.563 201.337Z"
+                stroke="#bc8cff"
+                id="path_1"
+              />
+              <path
+                d="M243.901 471.999L201.337 514.563C193.474 522.426 180.725 522.426 172.862 514.563L87.437 429.138C79.5739 421.275 79.5739 408.526 87.437 400.663L301.148 186.952L244.198 130.002L30.4869 343.713C-8.82897 383.028 -8.82897 446.772 30.4869 486.088L115.912 571.513C155.228 610.829 218.972 610.829 258.287 571.513L300.852 528.949L243.901 471.999Z"
+                stroke="#58a6ff"
+                id="path_2"
+              />
             </g>
-          );
-        })}
-
-        {/* Central focus element */}
-        <circle cx="301" cy="301" r="60" fill="none" stroke={accentColor} strokeWidth="1" opacity="0.3">
-          <animate
-            attributeName="r"
-            values="50;70;50"
-            dur="6s"
-            repeatCount="indefinite"
-          />
-          <animate
-            attributeName="opacity"
-            values="0.2;0.4;0.2"
-            dur="4s"
-            repeatCount="indefinite"
-          />
-        </circle>
-
-        {/* Concentric circles */}
-        {[20, 40, 80, 120].map((radius, i) => (
-          <circle
-            key={`circle-${i}`}
-            cx="301"
-            cy="301"
-            r={radius}
+            <ellipse
+              cx="295.027"
+              cy="193.118"
+              transform="translate(-295.027 -193.118)"
+              rx="1.07306"
+              ry="1.07433"
+              fill="rgba(88, 166, 255, 0.7)"
+            >
+              <animateMotion dur="10s" repeatCount="indefinite" rotate="auto">
+                <mpath xlinkHref="#path_2" />
+              </animateMotion>
+            </ellipse>
+            <path
+              d="M294.685 193.474L268.932 219.258"
+              transform="translate(-294.685 -193.474) rotate(45 294.685 193.474)"
+              stroke="rgba(88, 166, 255, 0.5)"
+            >
+              <animateMotion dur="10s" repeatCount="indefinite" rotate="auto">
+                <mpath xlinkHref="#path_2" />
+              </animateMotion>
+            </path>
+            <ellipse
+              cx="295.027"
+              cy="193.118"
+              transform="translate(-295.027 -193.118)"
+              rx="1.07306"
+              ry="1.07433"
+              fill="rgba(188, 140, 255, 0.7)"
+            >
+              <animateMotion
+                dur="5s"
+                begin="1"
+                repeatCount="indefinite"
+                rotate="auto"
+              >
+                <mpath xlinkHref="#path_2" />
+              </animateMotion>
+            </ellipse>
+            <path
+              d="M294.685 193.474L268.932 219.258"
+              transform="translate(-294.685 -193.474) rotate(45 294.685 193.474)"
+              stroke="rgba(188, 140, 255, 0.5)"
+            >
+              <animateMotion
+                dur="5s"
+                begin="1"
+                repeatCount="indefinite"
+                rotate="auto"
+              >
+                <mpath xlinkHref="#path_2" />
+              </animateMotion>
+            </path>
+            <ellipse
+              cx="476.525"
+              cy="363.313"
+              rx="1.07433"
+              ry="1.07306"
+              transform="translate(-476.525 -363.313) rotate(90 476.525 363.313)"
+              fill="rgba(88, 166, 255, 0.7)"
+            >
+              <animateMotion dur="10s" repeatCount="indefinite" rotate="auto">
+                <mpath xlinkHref="#path_0" />
+              </animateMotion>
+            </ellipse>
+            <path
+              d="M476.171 362.952L450.417 337.168"
+              transform="translate(-476.525 -363.313) rotate(-45 476.171 362.952)"
+              stroke="rgba(88, 166, 255, 0.5)"
+            >
+              <animateMotion dur="10s" repeatCount="indefinite" rotate="auto">
+                <mpath xlinkHref="#path_0" />
+              </animateMotion>
+            </path>
+            <ellipse
+              cx="382.164"
+              cy="155.029"
+              rx="1.07433"
+              ry="1.07306"
+              transform="translate(-382.164 -155.029) rotate(90 382.164 155.029)"
+              fill="rgba(88, 166, 255, 0.7)"
+            >
+              <animateMotion
+                dur="10s"
+                begin="1"
+                repeatCount="indefinite"
+                rotate="auto"
+              >
+                <mpath xlinkHref="#path_0" />
+              </animateMotion>
+            </ellipse>
+            <path
+              d="M381.81 154.669L356.057 128.885"
+              transform="translate(-381.81 -154.669) rotate(-45 381.81 154.669)"
+              stroke="rgba(88, 166, 255, 0.5)"
+            >
+              <animateMotion
+                dur="10s"
+                begin="1"
+                repeatCount="indefinite"
+                rotate="auto"
+              >
+                <mpath xlinkHref="#path_0" />
+              </animateMotion>
+            </path>
+            <ellipse
+              cx="333.324"
+              cy="382.691"
+              rx="1.07306"
+              ry="1.07433"
+              transform="translate(-333.324 -382.691) rotate(-180 333.324 382.691)"
+              fill="rgba(188, 140, 255, 0.7)"
+            >
+              <animateMotion
+                dur="5s"
+                begin="0"
+                repeatCount="indefinite"
+                rotate="auto"
+              >
+                <mpath xlinkHref="#path_1" />
+              </animateMotion>
+            </ellipse>
+            <path
+              d="M333.667 382.335L359.42 356.551"
+              transform="scale(-1 1) translate(-333.667 -382.335) rotate(45 333.667 382.335)"
+              stroke="rgba(188, 140, 255, 0.5)"
+            >
+              <animateMotion
+                dur="5s"
+                begin="0"
+                repeatCount="indefinite"
+                rotate="auto"
+              >
+                <mpath xlinkHref="#path_1" />
+              </animateMotion>
+            </path>
+            <ellipse
+              cx="165.524"
+              cy="93.9596"
+              rx="1.07306"
+              ry="1.07433"
+              transform="translate(-165.524 -93.9596)"
+              fill="rgba(88, 166, 255, 0.7)"
+            >
+              <animateMotion
+                dur="10s"
+                begin="3"
+                repeatCount="indefinite"
+                rotate="auto"
+              >
+                <mpath xlinkHref="#path_0" />
+              </animateMotion>
+            </ellipse>
+            <path
+              d="M165.182 94.3159L139.429 120.1"
+              transform="translate(-165.182 -94.3159) rotate(45 165.182 94.3159)"
+              stroke="rgba(88, 166, 255, 0.5)"
+            >
+              <animateMotion
+                dur="10s"
+                begin="3"
+                repeatCount="indefinite"
+                rotate="auto"
+              >
+                <mpath xlinkHref="#path_0" />
+              </animateMotion>
+            </path>
+            <ellipse
+              cx="476.525"
+              cy="363.313"
+              rx="1.07433"
+              ry="1.07306"
+              transform="translate(-476.525 -363.313) rotate(90 476.525 363.313)"
+              fill="rgba(188, 140, 255, 0.7)"
+            >
+              <animateMotion
+                dur="12s"
+                begin="4"
+                repeatCount="indefinite"
+                rotate="auto"
+              >
+                <mpath xlinkHref="#path_0" />
+              </animateMotion>
+            </ellipse>
+            <path
+              d="M476.171 362.952L450.417 337.168"
+              transform="translate(-476.525 -363.313) rotate(-45 476.171 362.952)"
+              stroke="rgba(188, 140, 255, 0.5)"
+            >
+              <animateMotion
+                dur="12s"
+                begin="4"
+                repeatCount="indefinite"
+                rotate="auto"
+              >
+                <mpath xlinkHref="#path_0" />
+              </animateMotion>
+            </path>
+            <defs>
+              <radialGradient
+                id="paint0_radial"
+                cx="0"
+                cy="0"
+                r="1"
+                gradientUnits="userSpaceOnUse"
+                gradientTransform="translate(301 301) rotate(90) scale(300)"
+              >
+                <stop offset="0.333333" stopColor="#58a6ff" />
+                <stop offset="1" stopColor="#58a6ff" stopOpacity="0" />
+              </radialGradient>
+              <radialGradient
+                id="paint1_radial"
+                cx="0"
+                cy="0"
+                r="1"
+                gradientUnits="userSpaceOnUse"
+                gradientTransform="translate(301 301) rotate(90) scale(300)"
+              >
+                <stop offset="0.333333" stopColor="#bc8cff" />
+                <stop offset="1" stopColor="#bc8cff" stopOpacity="0" />
+              </radialGradient>
+              <radialGradient
+                id="paint2_radial"
+                cx="0"
+                cy="0"
+                r="1"
+                gradientUnits="userSpaceOnUse"
+                gradientTransform="translate(301 301) rotate(90) scale(300)"
+              >
+                <stop offset="0.333333" stopColor="#58a6ff" />
+                <stop offset="1" stopColor="#58a6ff" stopOpacity="0" />
+              </radialGradient>
+              <linearGradient
+                id="paint3_linear"
+                x1="295.043"
+                y1="193.116"
+                x2="269.975"
+                y2="218.154"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stopColor="#58a6ff" />
+                <stop offset="1" stopColor="#58a6ff" stopOpacity="0" />
+              </linearGradient>
+              <linearGradient
+                id="paint4_linear"
+                x1="476.529"
+                y1="363.31"
+                x2="451.461"
+                y2="338.272"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stopColor="#58a6ff" />
+                <stop offset="1" stopColor="#58a6ff" stopOpacity="0" />
+              </linearGradient>
+              <linearGradient
+                id="paint5_linear"
+                x1="382.168"
+                y1="155.027"
+                x2="357.1"
+                y2="129.989"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stopColor="#58a6ff" />
+                <stop offset="1" stopColor="#58a6ff" stopOpacity="0" />
+              </linearGradient>
+              <linearGradient
+                id="paint6_linear"
+                x1="333.309"
+                y1="382.693"
+                x2="358.376"
+                y2="357.655"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stopColor="#bc8cff" />
+                <stop offset="1" stopColor="#bc8cff" stopOpacity="0" />
+              </linearGradient>
+              <linearGradient
+                id="paint7_linear"
+                x1="165.54"
+                y1="93.9578"
+                x2="140.472"
+                y2="118.996"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stopColor="#58a6ff" />
+                <stop offset="1" stopColor="#58a6ff" stopOpacity="0" />
+              </linearGradient>
+              <linearGradient
+                id="paint8_linear"
+                x1="414.367"
+                y1="301.156"
+                x2="439.435"
+                y2="276.118"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stopColor="#58a6ff" />
+                <stop offset="1" stopColor="#58a6ff" stopOpacity="0" />
+              </linearGradient>
+              <linearGradient
+                id="paint9_linear"
+                x1="515.943"
+                y1="288.238"
+                x2="541.339"
+                y2="291.454"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stopColor="#bc8cff" />
+                <stop offset="1" stopColor="#bc8cff" stopOpacity="0" />
+              </linearGradient>
+              <linearGradient
+                id="paint10_linear"
+                x1="117.001"
+                y1="230.619"
+                x2="117.36"
+                y2="258.193"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stopColor="#58a6ff" />
+                <stop offset="1" stopColor="#58a6ff" stopOpacity="0" />
+              </linearGradient>
+              <linearGradient
+                id="paint11_linear"
+                x1="476.529"
+                y1="363.31"
+                x2="451.461"
+                y2="338.272"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stopColor="#bc8cff" />
+                <stop offset="1" stopColor="#bc8cff" stopOpacity="0" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+      ) : (
+        <div className="hero-image">
+          <svg
+            className="BgAnimation__svg"
+            viewBox="0 0 602 602"
             fill="none"
-            stroke={primaryColor}
-            strokeWidth="0.5"
-            opacity="0.1"
+            xmlns="http://www.w3.org/2000/svg"
           >
-            <animate
-              attributeName="r"
-              values={`${radius};${radius + 10};${radius}`}
-              dur={`${8 + i * 2}s`}
-              repeatCount="indefinite"
-            />
-          </circle>
-        ))}
-
-        <defs>
-          {/* Background gradient */}
-          <linearGradient id="backgroundGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor={darkModeActive ? "#0F172A" : "#F8FAFC"} />
-            <stop offset="100%" stopColor={darkModeActive ? "#1E293B" : "#F1F5F9"} />
-          </linearGradient>
-
-          {/* Blob filter */}
-          <filter id="blobFilter">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
-            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo" />
-            <feComposite in="SourceGraphic" in2="goo" operator="atop" />
-          </filter>
-
-          {/* Accent gradients */}
-          <radialGradient id="particleGradient" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor={accentColor} stopOpacity="0.8" />
-            <stop offset="100%" stopColor={accentColor} stopOpacity="0" />
-          </radialGradient>
-        </defs>
-      </svg>
-    </div>
+            <g opacity="0.15">
+              <path
+                fillRule="evenodd"
+                clipRule="evenodd"
+                d="M201.337 87.437C193.474 79.5738 180.725 79.5738 172.862 87.437L87.437 172.862C79.5739 180.725 79.5739 193.474 87.437 201.337L400.663 514.563C408.526 522.426 421.275 522.426 429.138 514.563L514.563 429.138C522.426 421.275 522.426 408.526 514.563 400.663L201.337 87.437ZM30.4869 115.912C-8.82897 155.228 -8.82897 218.972 30.4869 258.287L343.713 571.513C383.028 610.829 446.772 610.829 486.088 571.513L571.513 486.088C610.829 446.772 610.829 383.028 571.513 343.713L258.287 30.4869C218.972 -8.82896 155.228 -8.82896 115.912 30.4869L30.4869 115.912Z"
+                stroke="#0969da"
+                id="path_0"
+              />
+              <path
+                d="M514.563 201.337C522.426 193.474 522.426 180.725 514.563 172.862L429.138 87.437C421.275 79.5738 408.526 79.5739 400.663 87.437L358.098 130.002L301.148 73.0516L343.713 30.4869C383.028 -8.82896 446.772 -8.82896 486.088 30.4869L571.513 115.912C610.829 155.228 610.829 218.972 571.513 258.287L357.802 471.999L300.852 415.049L514.563 201.337Z"
+                stroke="#8250df"
+                id="path_1"
+              />
+              <path
+                d="M243.901 471.999L201.337 514.563C193.474 522.426 180.725 522.426 172.862 514.563L87.437 429.138C79.5739 421.275 79.5739 408.526 87.437 400.663L301.148 186.952L244.198 130.002L30.4869 343.713C-8.82897 383.028 -8.82897 446.772 30.4869 486.088L115.912 571.513C155.228 610.829 218.972 610.829 258.287 571.513L300.852 528.949L243.901 471.999Z"
+                stroke="#0969da"
+                id="path_2"
+              />
+            </g>
+            <ellipse
+              cx="295.027"
+              cy="193.118"
+              transform="translate(-295.027 -193.118)"
+              rx="1.07306"
+              ry="1.07433"
+              fill="#0969da"
+            >
+              <animateMotion dur="10s" repeatCount="indefinite" rotate="auto">
+                <mpath xlinkHref="#path_2" />
+              </animateMotion>
+            </ellipse>
+            <path
+              d="M294.685 193.474L268.932 219.258"
+              transform="translate(-294.685 -193.474) rotate(45 294.685 193.474)"
+              stroke="url(#paint3_linear)"
+            >
+              <animateMotion dur="10s" repeatCount="indefinite" rotate="auto">
+                <mpath xlinkHref="#path_2" />
+              </animateMotion>
+            </path>
+            <ellipse
+              cx="295.027"
+              cy="193.118"
+              transform="translate(-295.027 -193.118)"
+              rx="1.07306"
+              ry="1.07433"
+              fill="#8250df"
+            >
+              <animateMotion
+                dur="5s"
+                begin="1"
+                repeatCount="indefinite"
+                rotate="auto"
+              >
+                <mpath xlinkHref="#path_2" />
+              </animateMotion>
+            </ellipse>
+            <path
+              d="M294.685 193.474L268.932 219.258"
+              transform="translate(-294.685 -193.474) rotate(45 294.685 193.474)"
+              stroke="url(#paint7_linear)"
+            >
+              <animateMotion
+                dur="5s"
+                begin="1"
+                repeatCount="indefinite"
+                rotate="auto"
+              >
+                <mpath xlinkHref="#path_2" />
+              </animateMotion>
+            </path>
+            <ellipse
+              cx="476.525"
+              cy="363.313"
+              rx="1.07433"
+              ry="1.07306"
+              transform="translate(-476.525 -363.313) rotate(90 476.525 363.313)"
+              fill="#0969da"
+            >
+              <animateMotion dur="10s" repeatCount="indefinite" rotate="auto">
+                <mpath xlinkHref="#path_0" />
+              </animateMotion>
+            </ellipse>
+            <path
+              d="M476.171 362.952L450.417 337.168"
+              transform="translate(-476.525 -363.313) rotate(-45 476.171 362.952)"
+              stroke="url(#paint4_linear)"
+            >
+              <animateMotion dur="10s" repeatCount="indefinite" rotate="auto">
+                <mpath xlinkHref="#path_0" />
+              </animateMotion>
+            </path>
+            <ellipse
+              cx="382.164"
+              cy="155.029"
+              rx="1.07433"
+              ry="1.07306"
+              transform="translate(-382.164 -155.029) rotate(90 382.164 155.029)"
+              fill="#0969da"
+            >
+              <animateMotion
+                dur="10s"
+                begin="1"
+                repeatCount="indefinite"
+                rotate="auto"
+              >
+                <mpath xlinkHref="#path_0" />
+              </animateMotion>
+            </ellipse>
+            <path
+              d="M381.81 154.669L356.057 128.885"
+              transform="translate(-381.81 -154.669) rotate(-45 381.81 154.669)"
+              stroke="url(#paint5_linear)"
+            >
+              <animateMotion
+                dur="10s"
+                begin="1"
+                repeatCount="indefinite"
+                rotate="auto"
+              >
+                <mpath xlinkHref="#path_0" />
+              </animateMotion>
+            </path>
+            <ellipse
+              cx="333.324"
+              cy="382.691"
+              rx="1.07306"
+              ry="1.07433"
+              transform="translate(-333.324 -382.691) rotate(-180 333.324 382.691)"
+              fill="#8250df"
+            >
+              <animateMotion
+                dur="5s"
+                begin="0"
+                repeatCount="indefinite"
+                rotate="auto"
+              >
+                <mpath xlinkHref="#path_1" />
+              </animateMotion>
+            </ellipse>
+            <path
+              d="M333.667 382.335L359.42 356.551"
+              transform="scale(-1 1) translate(-333.667 -382.335) rotate(45 333.667 382.335)"
+              stroke="url(#paint6_linear)"
+            >
+              <animateMotion
+                dur="5s"
+                begin="0"
+                repeatCount="indefinite"
+                rotate="auto"
+              >
+                <mpath xlinkHref="#path_1" />
+              </animateMotion>
+            </path>
+            <ellipse
+              cx="165.524"
+              cy="93.9596"
+              rx="1.07306"
+              ry="1.07433"
+              transform="translate(-165.524 -93.9596)"
+              fill="#0969da"
+            >
+              <animateMotion
+                dur="10s"
+                begin="3"
+                repeatCount="indefinite"
+                rotate="auto"
+              >
+                <mpath xlinkHref="#path_0" />
+              </animateMotion>
+            </ellipse>
+            <path
+              d="M165.182 94.3159L139.429 120.1"
+              transform="translate(-165.182 -94.3159) rotate(45 165.182 94.3159)"
+              stroke="url(#paint7_linear)"
+            >
+              <animateMotion
+                dur="10s"
+                begin="3"
+                repeatCount="indefinite"
+                rotate="auto"
+              >
+                <mpath xlinkHref="#path_0" />
+              </animateMotion>
+            </path>
+            <ellipse
+              cx="476.525"
+              cy="363.313"
+              rx="1.07433"
+              ry="1.07306"
+              transform="translate(-476.525 -363.313) rotate(90 476.525 363.313)"
+              fill="#8250df"
+            >
+              <animateMotion
+                dur="12s"
+                begin="4"
+                repeatCount="indefinite"
+                rotate="auto"
+              >
+                <mpath xlinkHref="#path_0" />
+              </animateMotion>
+            </ellipse>
+            <path
+              d="M476.171 362.952L450.417 337.168"
+              transform="translate(-476.525 -363.313) rotate(-45 476.171 362.952)"
+              stroke="url(#paint11_linear)"
+            >
+              <animateMotion
+                dur="12s"
+                begin="4"
+                repeatCount="indefinite"
+                rotate="auto"
+              >
+                <mpath xlinkHref="#path_0" />
+              </animateMotion>
+            </path>
+            <defs>
+              <radialGradient
+                id="paint0_radial"
+                cx="0"
+                cy="0"
+                r="1"
+                gradientUnits="userSpaceOnUse"
+                gradientTransform="translate(301 301) rotate(90) scale(300)"
+              >
+                <stop offset="0.333333" stopColor="#0969da" />
+                <stop offset="1" stopColor="#0969da" stopOpacity="0" />
+              </radialGradient>
+              <radialGradient
+                id="paint1_radial"
+                cx="0"
+                cy="0"
+                r="1"
+                gradientUnits="userSpaceOnUse"
+                gradientTransform="translate(301 301) rotate(90) scale(300)"
+              >
+                <stop offset="0.333333" stopColor="#8250df" />
+                <stop offset="1" stopColor="#8250df" stopOpacity="0" />
+              </radialGradient>
+              <radialGradient
+                id="paint2_radial"
+                cx="0"
+                cy="0"
+                r="1"
+                gradientUnits="userSpaceOnUse"
+                gradientTransform="translate(301 301) rotate(90) scale(300)"
+              >
+                <stop offset="0.333333" stopColor="#0969da" />
+                <stop offset="1" stopColor="#0969da" stopOpacity="0" />
+              </radialGradient>
+              <linearGradient
+                id="paint3_linear"
+                x1="295.043"
+                y1="193.116"
+                x2="269.975"
+                y2="218.154"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stopColor="#0969da" />
+                <stop offset="1" stopColor="#0969da" stopOpacity="0" />
+              </linearGradient>
+              <linearGradient
+                id="paint4_linear"
+                x1="476.529"
+                y1="363.31"
+                x2="451.461"
+                y2="338.272"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stopColor="#0969da" />
+                <stop offset="1" stopColor="#0969da" stopOpacity="0" />
+              </linearGradient>
+              <linearGradient
+                id="paint5_linear"
+                x1="382.168"
+                y1="155.027"
+                x2="357.1"
+                y2="129.989"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stopColor="#0969da" />
+                <stop offset="1" stopColor="#0969da" stopOpacity="0" />
+              </linearGradient>
+              <linearGradient
+                id="paint6_linear"
+                x1="333.309"
+                y1="382.693"
+                x2="358.376"
+                y2="357.655"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stopColor="#8250df" />
+                <stop offset="1" stopColor="#8250df" stopOpacity="0" />
+              </linearGradient>
+              <linearGradient
+                id="paint7_linear"
+                x1="165.54"
+                y1="93.9578"
+                x2="140.472"
+                y2="118.996"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stopColor="#0969da" />
+                <stop offset="1" stopColor="#0969da" stopOpacity="0" />
+              </linearGradient>
+              <linearGradient
+                id="paint8_linear"
+                x1="414.367"
+                y1="301.156"
+                x2="439.435"
+                y2="276.118"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stopColor="#0969da" />
+                <stop offset="1" stopColor="#0969da" stopOpacity="0" />
+              </linearGradient>
+              <linearGradient
+                id="paint9_linear"
+                x1="515.943"
+                y1="288.238"
+                x2="541.339"
+                y2="291.454"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stopColor="#8250df" />
+                <stop offset="1" stopColor="#8250df" stopOpacity="0" />
+              </linearGradient>
+              <linearGradient
+                id="paint10_linear"
+                x1="117.001"
+                y1="230.619"
+                x2="117.36"
+                y2="258.193"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stopColor="#0969da" />
+                <stop offset="1" stopColor="#0969da" stopOpacity="0" />
+              </linearGradient>
+              <linearGradient
+                id="paint11_linear"
+                x1="476.529"
+                y1="363.31"
+                x2="451.461"
+                y2="338.272"
+                gradientUnits="userSpaceOnUse"
+              >
+                <stop stopColor="#8250df" />
+                <stop offset="1" stopColor="#8250df" stopOpacity="0" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+      )}
+    </>
   );
 };
 
