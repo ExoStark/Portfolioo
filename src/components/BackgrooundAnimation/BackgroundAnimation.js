@@ -5,9 +5,10 @@ const BackgroundAnimation = () => {
   const { darkModeActive } = useDarkMode();
   
   const primaryColor = darkModeActive ? "#fff" : "#17181F";
-  const secondaryColor = darkModeActive ? "rgba(255,255,255,0.7)" : "rgba(23,24,31,0.7)";
+  const secondaryColor = darkModeActive ? "rgba(255,255,255,0.5)" : "rgba(23,24,31,0.5)";
   const accentColor = darkModeActive ? "#6366F1" : "#4F46E5";
-  const glowColor = darkModeActive ? "rgba(99, 102, 241, 0.15)" : "rgba(79, 70, 229, 0.1)";
+  const gradientStart = darkModeActive ? "rgba(99, 102, 241, 0.3)" : "rgba(79, 70, 229, 0.2)";
+  const gradientEnd = darkModeActive ? "rgba(99, 102, 241, 0.1)" : "rgba(79, 70, 229, 0.05)";
 
   return (
     <div className="hero-image">
@@ -17,232 +18,233 @@ const BackgroundAnimation = () => {
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        {/* Subtle grid pattern in background */}
-        <pattern id="smallGrid" width="20" height="20" patternUnits="userSpaceOnUse">
-          <path 
-            d="M 20 0 L 0 0 0 20" 
-            fill="none" 
-            stroke={darkModeActive ? "rgba(255,255,255,0.03)" : "rgba(0,0,0,0.03)"} 
-            strokeWidth="0.5"
-          />
-        </pattern>
-        <rect width="100%" height="100%" fill="url(#smallGrid)" />
+        {/* Background gradient */}
+        <rect width="602" height="602" fill={`url(#backgroundGradient)`} />
         
-        {/* Main geometric shapes with gradient fills */}
-        <g opacity={darkModeActive ? "0.2" : "0.15"}>
+        {/* Floating blobs/organic shapes */}
+        <g filter="url(#blobFilter)">
           <path
-            fillRule="evenodd"
-            clipRule="evenodd"
-            d="M201.337 87.437C193.474 79.5738 180.725 79.5738 172.862 87.437L87.437 172.862C79.5739 180.725 79.5739 193.474 87.437 201.337L400.663 514.563C408.526 522.426 421.275 522.426 429.138 514.563L514.563 429.138C522.426 421.275 522.426 408.526 514.563 400.663L201.337 87.437ZM30.4869 115.912C-8.82897 155.228 -8.82897 218.972 30.4869 258.287L343.713 571.513C383.028 610.829 446.772 610.829 486.088 571.513L571.513 486.088C610.829 446.772 610.829 383.028 571.513 343.713L258.287 30.4869C218.972 -8.82896 155.228 -8.82896 115.912 30.4869L30.4869 115.912Z"
-            stroke={primaryColor}
-            strokeWidth="0.7"
-            id="path_0"
-          />
+            d="M450 200C475 180 500 220 480 250C460 280 420 290 390 270C360 250 350 210 370 180C390 150 425 140 450 170C475 200 425 220 450 200Z"
+            fill={gradientStart}
+            opacity="0.7"
+          >
+            <animate
+              attributeName="d"
+              dur="20s"
+              repeatCount="indefinite"
+              values="M450 200C475 180 500 220 480 250C460 280 420 290 390 270C360 250 350 210 370 180C390 150 425 140 450 170C475 200 425 220 450 200Z;
+                      M440 190C465 170 490 210 470 240C450 270 410 280 380 260C350 240 340 200 360 170C380 140 415 130 440 160C465 190 415 210 440 190Z;
+                      M460 210C485 190 510 230 490 260C470 290 430 300 400 280C370 260 360 220 380 190C400 160 435 150 460 180C485 210 435 230 460 210Z;
+                      M450 200C475 180 500 220 480 250C460 280 420 290 390 270C360 250 350 210 370 180C390 150 425 140 450 170C475 200 425 220 450 200Z"
+            />
+          </path>
+
           <path
-            d="M514.563 201.337C522.426 193.474 522.426 180.725 514.563 172.862L429.138 87.437C421.275 79.5738 408.526 79.5739 400.663 87.437L358.098 130.002L301.148 73.0516L343.713 30.4869C383.028 -8.82896 446.772 -8.82896 486.088 30.4869L571.513 115.912C610.829 155.228 610.829 218.972 571.513 258.287L357.802 471.999L300.852 415.049L514.563 201.337Z"
-            stroke={primaryColor}
-            strokeWidth="0.7"
-            id="path_1"
-          />
-          <path
-            d="M243.901 471.999L201.337 514.563C193.474 522.426 180.725 522.426 172.862 514.563L87.437 429.138C79.5739 421.275 79.5739 408.526 87.437 400.663L301.148 186.952L244.198 130.002L30.4869 343.713C-8.82897 383.028 -8.82897 446.772 30.4869 486.088L115.912 571.513C155.228 610.829 218.972 610.829 258.287 571.513L300.852 528.949L243.901 471.999Z"
-            stroke={primaryColor}
-            strokeWidth="0.7"
-            id="path_2"
-          />
+            d="M150 400C125 380 100 420 120 450C140 480 180 490 210 470C240 450 250 410 230 380C210 350 175 340 150 370C125 400 175 420 150 400Z"
+            fill={gradientEnd}
+            opacity="0.6"
+          >
+            <animate
+              attributeName="d"
+              dur="25s"
+              repeatCount="indefinite"
+              values="M150 400C125 380 100 420 120 450C140 480 180 490 210 470C240 450 250 410 230 380C210 350 175 340 150 370C125 400 175 420 150 400Z;
+                      M140 390C115 370 90 410 110 440C130 470 170 480 200 460C230 440 240 400 220 370C200 340 165 330 140 360C115 390 165 410 140 390Z;
+                      M160 410C135 390 110 430 130 460C150 490 190 500 220 480C250 460 260 420 240 390C220 360 185 350 160 380C135 410 185 430 160 410Z;
+                      M150 400C125 380 100 420 120 450C140 480 180 490 210 470C240 450 250 410 230 380C210 350 175 340 150 370C125 400 175 420 150 400Z"
+            />
+          </path>
         </g>
 
-        {/* Floating particles with varying animations */}
-        {[...Array(15)].map((_, i) => {
-          const size = 0.8 + Math.random() * 1.5;
-          const duration = 15 + Math.random() * 20;
-          const delay = Math.random() * 5;
-          
-          return (
-            <circle
-              key={`particle-${i}`}
-              cx={Math.random() * 600}
-              cy={Math.random() * 600}
-              r={size}
-              fill={i % 3 === 0 ? accentColor : primaryColor}
-              opacity={0.3 + Math.random() * 0.4}
+        {/* Wave patterns */}
+        <g opacity="0.4">
+          <path
+            d="M0 350 Q150 300 300 350 T600 350"
+            stroke={accentColor}
+            strokeWidth="2"
+            fill="none"
+          >
+            <animate
+              attributeName="d"
+              dur="15s"
+              repeatCount="indefinite"
+              values="M0 350 Q150 300 300 350 T600 350;
+                      M0 340 Q150 290 300 340 T600 340;
+                      M0 360 Q150 310 300 360 T600 360;
+                      M0 350 Q150 300 300 350 T600 350"
+            />
+          </path>
+
+          <path
+            d="M0 450 Q150 400 300 450 T600 450"
+            stroke={primaryColor}
+            strokeWidth="1.5"
+            fill="none"
+          >
+            <animate
+              attributeName="d"
+              dur="12s"
+              repeatCount="indefinite"
+              values="M0 450 Q150 400 300 450 T600 450;
+                      M0 440 Q150 390 300 440 T600 440;
+                      M0 460 Q150 410 300 460 T600 460;
+                      M0 450 Q150 400 300 450 T600 450"
+            />
+          </path>
+
+          <path
+            d="M0 250 Q150 200 300 250 T600 250"
+            stroke={secondaryColor}
+            strokeWidth="1"
+            fill="none"
+          >
+            <animate
+              attributeName="d"
+              dur="18s"
+              repeatCount="indefinite"
+              values="M0 250 Q150 200 300 250 T600 250;
+                      M0 240 Q150 190 300 240 T600 240;
+                      M0 260 Q150 210 300 260 T600 260;
+                      M0 250 Q150 200 300 250 T600 250"
+            />
+          </path>
+        </g>
+
+        {/* Geometric patterns - Hexagons */}
+        <g opacity="0.2" stroke={primaryColor} strokeWidth="0.5">
+          {[...Array(6)].map((_, i) => (
+            <path
+              key={`hex-${i}`}
+              d={`M${300 + Math.cos(i * Math.PI / 3) * 100} ${300 + Math.sin(i * Math.PI / 3) * 100} 
+                  L${300 + Math.cos((i + 1) * Math.PI / 3) * 100} ${300 + Math.sin((i + 1) * Math.PI / 3) * 100}`}
             >
               <animate
-                attributeName="cx"
-                values={`${Math.random() * 600};${Math.random() * 600};${Math.random() * 600}`}
-                dur={`${duration}s`}
+                attributeName="stroke"
+                values={`${primaryColor};${accentColor};${primaryColor}`}
+                dur="8s"
+                begin={`${i * 0.5}s`}
                 repeatCount="indefinite"
               />
-              <animate
-                attributeName="cy"
-                values={`${Math.random() * 600};${Math.random() * 600};${Math.random() * 600}`}
-                dur={`${duration + 5}s`}
-                repeatCount="indefinite"
-              />
-              <animate
-                attributeName="r"
-                values={`${size};${size * 1.5};${size}`}
-                dur={`${3 + Math.random() * 4}s`}
-                repeatCount="indefinite"
-                begin={`${delay}s`}
-              />
-              <animate
-                attributeName="opacity"
-                values={`${0.3 + Math.random() * 0.4};${0.6 + Math.random() * 0.3};${0.3 + Math.random() * 0.4}`}
-                dur={`${4 + Math.random() * 3}s`}
-                repeatCount="indefinite"
-              />
-            </circle>
+            </path>
+          ))}
+        </g>
+
+        {/* Floating particles with trails */}
+        {[...Array(8)].map((_, i) => {
+          const size = 1 + Math.random() * 2;
+          const duration = 10 + Math.random() * 15;
+          const delay = Math.random() * 3;
+          
+          return (
+            <g key={`particle-${i}`}>
+              <circle
+                cx={100 + Math.random() * 400}
+                cy={100 + Math.random() * 400}
+                r={size}
+                fill={accentColor}
+                opacity="0.8"
+              >
+                <animate
+                  attributeName="cx"
+                  values={`${100 + Math.random() * 400};${100 + Math.random() * 400};${100 + Math.random() * 400}`}
+                  dur={`${duration}s`}
+                  repeatCount="indefinite"
+                />
+                <animate
+                  attributeName="cy"
+                  values={`${100 + Math.random() * 400};${100 + Math.random() * 400};${100 + Math.random() * 400}`}
+                  dur={`${duration + 2}s`}
+                  repeatCount="indefinite"
+                />
+                <animate
+                  attributeName="r"
+                  values={`${size};${size * 1.5};${size}`}
+                  dur={`${4}s`}
+                  repeatCount="indefinite"
+                />
+              </circle>
+              <circle
+                cx={100 + Math.random() * 400}
+                cy={100 + Math.random() * 400}
+                r={size * 0.6}
+                fill={primaryColor}
+                opacity="0.4"
+              >
+                <animate
+                  attributeName="cx"
+                  values={`${100 + Math.random() * 400};${100 + Math.random() * 400};${100 + Math.random() * 400}`}
+                  dur={`${duration}s`}
+                  repeatCount="indefinite"
+                  begin={`${delay}s`}
+                />
+                <animate
+                  attributeName="cy"
+                  values={`${100 + Math.random() * 400};${100 + Math.random() * 400};${100 + Math.random() * 400}`}
+                  dur={`${duration + 2}s`}
+                  repeatCount="indefinite"
+                  begin={`${delay}s`}
+                />
+              </circle>
+            </g>
           );
         })}
 
-        {/* Animated orbs following paths with glow effects */}
-        <g filter="url(#glow)">
-          <circle
-            cx="295.027"
-            cy="193.118"
-            r="3"
-            fill={accentColor}
-            opacity="0.8"
-          >
-            <animateMotion dur="20s" repeatCount="indefinite" rotate="auto">
-              <mpath xlinkHref="#path_2" />
-            </animateMotion>
-            <animate
-              attributeName="r"
-              values="2;4;2"
-              dur="4s"
-              repeatCount="indefinite"
-            />
-          </circle>
-
-          <circle
-            cx="476.525"
-            cy="363.313"
-            r="2.5"
-            fill={primaryColor}
-            opacity="0.7"
-          >
-            <animateMotion dur="18s" repeatCount="indefinite" rotate="auto">
-              <mpath xlinkHref="#path_0" />
-            </animateMotion>
-            <animate
-              attributeName="fill"
-              values={`${primaryColor};${accentColor};${primaryColor}`}
-              dur="6s"
-              repeatCount="indefinite"
-            />
-          </circle>
-
-          <circle
-            cx="333.324"
-            cy="382.691"
-            r="3.5"
-            fill={accentColor}
-            opacity="0.9"
-          >
-            <animateMotion dur="22s" repeatCount="indefinite" rotate="auto">
-              <mpath xlinkHref="#path_1" />
-            </animateMotion>
-          </circle>
-        </g>
-
-        {/* Connecting lines between moving elements */}
-        <path
-          d="M295.027,193.118 L476.525,363.313"
-          stroke={accentColor}
-          strokeWidth="0.5"
-          strokeDasharray="3,3"
-          opacity="0.4"
-        >
-          <animate
-            attributeName="opacity"
-            values="0.2;0.6;0.2"
-            dur="5s"
-            repeatCount="indefinite"
-          />
-        </path>
-
-        {/* Central pulsating element */}
-        <circle cx="301" cy="301" r="80" fill="url(#centralGradient)" opacity="0.1">
+        {/* Central focus element */}
+        <circle cx="301" cy="301" r="60" fill="none" stroke={accentColor} strokeWidth="1" opacity="0.3">
           <animate
             attributeName="r"
-            values="70;90;70"
-            dur="8s"
+            values="50;70;50"
+            dur="6s"
             repeatCount="indefinite"
           />
           <animate
             attributeName="opacity"
-            values="0.05;0.15;0.05"
-            dur="6s"
+            values="0.2;0.4;0.2"
+            dur="4s"
             repeatCount="indefinite"
           />
         </circle>
 
-        {/* Subtle wave patterns */}
-        <path
-          d="M100,300 Q250,250 400,300 T700,300"
-          stroke={accentColor}
-          strokeWidth="1"
-          fill="none"
-          opacity="0.1"
-        >
-          <animate
-            attributeName="d"
-            values="M100,300 Q250,250 400,300 T700,300;M100,320 Q250,270 400,320 T700,320;M100,300 Q250,250 400,300 T700,300"
-            dur="12s"
-            repeatCount="indefinite"
-          />
-        </path>
-
-        <path
-          d="M100,350 Q250,400 400,350 T700,350"
-          stroke={accentColor}
-          strokeWidth="1"
-          fill="none"
-          opacity="0.1"
-        >
-          <animate
-            attributeName="d"
-            values="M100,350 Q250,400 400,350 T700,350;M100,330 Q250,380 400,330 T700,330;M100,350 Q250,400 400,350 T700,350"
-            dur="15s"
-            repeatCount="indefinite"
-          />
-        </path>
+        {/* Concentric circles */}
+        {[20, 40, 80, 120].map((radius, i) => (
+          <circle
+            key={`circle-${i}`}
+            cx="301"
+            cy="301"
+            r={radius}
+            fill="none"
+            stroke={primaryColor}
+            strokeWidth="0.5"
+            opacity="0.1"
+          >
+            <animate
+              attributeName="r"
+              values={`${radius};${radius + 10};${radius}`}
+              dur={`${8 + i * 2}s`}
+              repeatCount="indefinite"
+            />
+          </circle>
+        ))}
 
         <defs>
-          {/* Glow filter */}
-          <filter id="glow" height="300%" width="300%" x="-75%" y="-75%">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur" />
-            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 20 -8" result="glow" />
-            <feComposite in="SourceGraphic" in2="glow" operator="over" />
+          {/* Background gradient */}
+          <linearGradient id="backgroundGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor={darkModeActive ? "#0F172A" : "#F8FAFC"} />
+            <stop offset="100%" stopColor={darkModeActive ? "#1E293B" : "#F1F5F9"} />
+          </linearGradient>
+
+          {/* Blob filter */}
+          <filter id="blobFilter">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="10" result="blur" />
+            <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo" />
+            <feComposite in="SourceGraphic" in2="goo" operator="atop" />
           </filter>
 
-          {/* Central gradient */}
-          <radialGradient
-            id="centralGradient"
-            cx="50%"
-            cy="50%"
-            r="50%"
-            fx="50%"
-            fy="50%"
-          >
-            <stop offset="0%" stopColor={accentColor} stopOpacity="1" />
+          {/* Accent gradients */}
+          <radialGradient id="particleGradient" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor={accentColor} stopOpacity="0.8" />
             <stop offset="100%" stopColor={accentColor} stopOpacity="0" />
           </radialGradient>
-
-          {/* Additional gradients */}
-          <linearGradient
-            id="paint3_linear"
-            x1="295.043"
-            y1="193.116"
-            x2="269.975"
-            y2="218.154"
-            gradientUnits="userSpaceOnUse"
-          >
-            <stop stopColor={primaryColor} />
-            <stop offset="1" stopColor={primaryColor} stopOpacity="0" />
-          </linearGradient>
         </defs>
       </svg>
     </div>
