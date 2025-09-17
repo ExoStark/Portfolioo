@@ -1,25 +1,37 @@
 import React from 'react';
+import styled from 'styled-components';
 
-import {Section, SectionText, SectionTitle} from '../../styles/GlobalComponents';
+// Import global styles or define local ones
+import { Section, SectionText, SectionTitle } from '../../styles/GlobalComponents';
 import Button from '../../styles/GlobalComponents/Button';
-import {LeftSection} from './HeroStyles';
+
+// Define the styled component for the left section
+const LeftSection = styled.div`
+  width: 100%;
+  padding-bottom: 40px; /* Consistent spacing */
+
+  @media ${(props) => props.theme.breakpoints.sm} {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    padding-bottom: 20px;
+  }
+`;
 
 const Hero = () => (
-  <>
-    <Section row nopadding>
-      <LeftSection>
-        <SectionTitle main center>
-          Welcome To <br />
-          My Personal Portfolio
-        </SectionTitle>
-        <SectionText style={{paddingBottom:0}}>
-        The purpose of this portfolio website is to quickly become familiar with my few projects and general information about me. <br/>
-          Access contact links for more details and a possible collaboration.
-        </SectionText>
-        {/*<Button onClick={props.handleClick}>Learn More</Button>*/}
-      </LeftSection>
-    </Section>
-  </>
+  <Section row nopadding>
+    <LeftSection>
+      <SectionTitle main center>
+        Welcome To <br />
+        My Personal Portfolio
+      </SectionTitle>
+      <SectionText>
+        Explore my portfolio to quickly familiarize yourself with my projects and professional background. Feel free to connect via the contact links for a potential collaboration.
+      </SectionText>
+      <Button onClick={() => window.location.href = '#about'}>Learn More</Button>
+    </LeftSection>
+  </Section>
 );
 
 export default Hero;
