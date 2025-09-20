@@ -214,14 +214,10 @@ const ProjectCard = ({ item }) => {
         >
           <Picture>
             <source srcSet={imageWebp} type="image/webp" />
-            <motion.img
+            <motion.div
+              as={PictureImg}
               src={image}
               alt={title}
-              style={{
-                width: "100%",
-                height: "auto",
-                display: "block",
-              }}
               whileHover={{ scale: 1.1 }}
               transition={{ duration: 0.6, ease: "easeOut" }}
             />
@@ -261,19 +257,28 @@ const ProjectCard = ({ item }) => {
             aria-label="Open Project Gallery in a modal window"
             onClick={openModal}
             style={{
-              background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-              border: "none",
-              borderRadius: "50%",
-              padding: "15px",
-              fontSize: "24px",
-              color: "white",
-              cursor: "pointer",
-              boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3)",
               position: "relative",
               overflow: "hidden",
+              borderRadius: "50%",
+              width: "60px",
+              height: "60px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: "24px",
+              boxShadow: "0 8px 32px rgba(0, 0, 0, 0.3)",
             }}
           >
-            <BsPlusCircleFill />
+            <motion.div
+              style={{
+                color: "white",
+                fontSize: "24px",
+                zIndex: 10,
+                position: "relative",
+              }}
+            >
+              <BsPlusCircleFill />
+            </motion.div>
             
             {/* Button pulse effect */}
             <motion.div
@@ -312,13 +317,7 @@ const ProjectCard = ({ item }) => {
           whileHover={{ scale: 1.05 }}
           transition={{ type: "spring", stiffness: 400 }}
         >
-          <HeaderThree title style={{ 
-            background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-            backgroundClip: "text",
-            WebkitBackgroundClip: "text",
-            color: "transparent",
-            fontWeight: "bold"
-          }}>
+          <HeaderThree title>
             {title}
           </HeaderThree>
         </motion.div>
@@ -328,11 +327,7 @@ const ProjectCard = ({ item }) => {
           whileHover={{ scaleX: 1.1 }}
           transition={{ type: "spring", stiffness: 400 }}
         >
-          <Hr style={{
-            background: "linear-gradient(90deg, transparent, #667eea, #764ba2, transparent)",
-            height: "2px",
-            border: "none",
-          }} />
+          <Hr />
         </motion.div>
       </TitleContent>
 
@@ -341,14 +336,7 @@ const ProjectCard = ({ item }) => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2, duration: 0.6 }}
       >
-        <CardInfo className="card-info" style={{
-          background: "rgba(255, 255, 255, 0.05)",
-          padding: "15px",
-          borderRadius: "8px",
-          backdropFilter: "blur(10px)",
-          border: "1px solid rgba(255, 255, 255, 0.1)",
-          margin: "10px 0",
-        }}>
+        <CardInfo className="card-info">
           {description}
         </CardInfo>
       </motion.div>
@@ -363,7 +351,7 @@ const ProjectCard = ({ item }) => {
           </motion.b>
         </TitleContent>
         
-        <TagList style={{ display: "flex", flexWrap: "wrap", gap: "8px" }}>
+        <TagList>
           {tags.map((t, i) => (
             <motion.div
               key={i}
@@ -373,18 +361,7 @@ const ProjectCard = ({ item }) => {
               animate="animate"
               whileHover="hover"
             >
-              <Tag style={{
-                background: `linear-gradient(135deg, hsl(${(i * 40) % 360}, 60%, 50%), hsl(${(i * 40 + 60) % 360}, 60%, 60%))`,
-                color: "white",
-                padding: "6px 12px",
-                borderRadius: "20px",
-                fontSize: "12px",
-                fontWeight: "bold",
-                border: "1px solid rgba(255, 255, 255, 0.2)",
-                textShadow: "0 1px 2px rgba(0, 0, 0, 0.3)",
-                cursor: "pointer",
-                userSelect: "none",
-              }}>
+              <Tag>
                 {t}
               </Tag>
             </motion.div>
